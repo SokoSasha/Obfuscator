@@ -1,0 +1,9 @@
+encr
+passwd
+k
+i
+passcheck
+passwd
+pass
+check
+passwd

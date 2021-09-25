@@ -1,0 +1,5 @@
+1 - yes | 0 - no
+SpacesOff=1
+CommentsOff=1
+ChangeNames=1
+AddTrash=1
