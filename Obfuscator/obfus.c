@@ -556,8 +556,7 @@ void addtrash(FILE* read, FILE* write)
 	while (!feof(read))
 	{
 		
-		/*cerf
-		if (c == EOF)
+		/*if (c == EOF)
 		{
 			c = fgetc(read);
 			if (feof(read)) break;
