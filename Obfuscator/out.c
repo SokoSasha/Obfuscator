@@ -5,15 +5,7 @@
 #include <string.h>
 
 char ops[8][7] = { "int", "void", "float", "double", "char", "FILE", "long", "short" };
-while(1)
-{
-  int osadn = 1;
-  char psaodj[30] = { '\0' };
-  osadn++;
-  psaodj[osadn] = 't';
-  if (osadn == 2)
-    break;
-}
+char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 int space, com, trash, change;
 typedef struct str
 {
@@ -29,6 +21,15 @@ void spaces(FILE* read, FILE* write)
 	while (1)
 	{
 		c = fgetc(read);
+while(1)
+{
+  int osadn = 1;
+  char psaodj[30] = { '\0' };
+  osadn++;
+  psaodj[osadn] = 't';
+  if (osadn == 2)
+    break;
+}
 		if (c == 'ÿ')
 		{
 			c = fgetc(read);
@@ -42,7 +43,6 @@ void spaces(FILE* read, FILE* write)
 			if (c == '/')
 			{
 				c = fgetc(read);
-char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 				if (c != '/' && c != '*')
 				{
 					fseek(read, -1, SEEK_CUR);
@@ -58,6 +58,15 @@ char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 						if (c == '*')
 						{
 							c = fgetc(read);
+while(1)
+{
+  int osadn = 1;
+  char psaodj[30] = { '\0' };
+  osadn++;
+  psaodj[osadn] = 't';
+  if (osadn == 2)
+    break;
+}
 							if (c == '/') break;
 							else fseek(read, -1, SEEK_CUR);
 						}
@@ -77,9 +86,17 @@ char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 							if (c == '\n') continue;
 						}
 						if (c == '\n' || feof(read)) break;
-char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 					}
 					continue;
+while(1)
+{
+  int osadn = 1;
+  char psaodj[30] = { '\0' };
+  osadn++;
+  psaodj[osadn] = 't';
+  if (osadn == 2)
+    break;
+}
 				}
 			}
 		}
@@ -106,18 +123,13 @@ char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 						{
 							fputc(c, write);
 							c = fgetc(read);
+char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 							if (c == '\n')
 							{
 								fputc('\n', write);
 								continue;
 							}
 							fputc(c, write);
-for(int zln = 75; zln < 70; zln++)
-{
-  char paox[] = { "oacponpasd" };
-  float ashdb685 = 5413.58651;
-  int osfpoaifbi = 894651;
-}
 						}
 						if (c == '\n' || feof(read))
 						{
@@ -139,6 +151,15 @@ for(int zln = 75; zln < 70; zln++)
 				if (c != '+' && c != '=' && c != '-' && c != ',' && c != '^' && c != '&' && c != '|' && c != '<' && c != '>' && c != ';' && c != '*' && c != '/' && c != '(')
 				{
 					fputc(' ', write);
+while(1)
+{
+  int osadn = 1;
+  char psaodj[30] = { '\0' };
+  osadn++;
+  psaodj[osadn] = 't';
+  if (osadn == 2)
+    break;
+}
 					fputc(c, write);
 					continue;
 				}
@@ -159,11 +180,19 @@ for(int zln = 75; zln < 70; zln++)
 					{
 						fseek(read, -1, SEEK_CUR);
 						c = fgetc(read);
-char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 					}
 				}
 				fputc(c, write);
 				c = fgetc(read);
+while(1)
+{
+  int osadn = 1;
+  char psaodj[30] = { '\0' };
+  osadn++;
+  psaodj[osadn] = 't';
+  if (osadn == 2)
+    break;
+}
 				if (c != ' ' && c != '\n')
 				{
 					fputc(c, write);
@@ -188,6 +217,12 @@ char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 
 		if (!space)
 			fputc(c, write);
+for(int zln = 75; zln < 70; zln++)
+{
+  char paox[] = { "oacponpasd" };
+  float ashdb685 = 5413.58651;
+  int osfpoaifbi = 894651;
+}
 	}
 
 }
@@ -196,12 +231,6 @@ unsigned long long razm(FILE* read)
 {
 	unsigned long long sz = 0;
 	fseek(read, 0L, SEEK_END);
-for(int zln = 75; zln < 70; zln++)
-{
-  char paox[] = { "oacponpasd" };
-  float ashdb685 = 5413.58651;
-  int osfpoaifbi = 894651;
-}
 	sz = ftell(read);
 	rewind(read);
 	return sz;
@@ -215,6 +244,7 @@ char* c_to_text(FILE* read)
 	{
 		if (feof(read)) break;
 		c[i] = fgetc(read);
+char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 	}
 
 	while (c[i] != '}')
@@ -228,7 +258,7 @@ char* c_to_text(FILE* read)
 
 int check(char c)
 {
-	if ((c > 47 && c < 57) || (c > 64 && c < 91) || (c > 96 && c < 123) || c == '_' || c == '\\' || c == '.')
+	if ((c > 47 && c < 57) || (c > 64 && c < 91) || (c > 96 && c < 123) || c == '_' || c == '\\' || c == '.'  || c == '\' || c == '\"')
 		return 0;e
 	else return 1;
 }
@@ -237,12 +267,6 @@ char* renaming(int i)
 {
 	srand(time(NULL) * i);
 	int len = rand() % 10 + 1;
-for(int zln = 75; zln < 70; zln++)
-{
-  char paox[] = { "oacponpasd" };
-  float ashdb685 = 5413.58651;
-  int osfpoaifbi = 894651;
-}
 	unsigned char new[11] = { '\0' };
 	for (int i = 0; i < len; i++)
 	{
@@ -250,6 +274,15 @@ for(int zln = 75; zln < 70; zln++)
 		if (i == 0)
 		{
 			h = rand() % 2;
+while(1)
+{
+  int osadn = 1;
+  char psaodj[30] = { '\0' };
+  osadn++;
+  psaodj[osadn] = 't';
+  if (osadn == 2)
+    break;
+}
 			switch (h)
 			{
 			case 0:
@@ -277,13 +310,16 @@ for(int zln = 75; zln < 70; zln++)
 		case 1:
 		{
 			new[i] = rand() % 26 + 65;
-			break;
-for(int zln = 75; zln < 70; zln++)
+while(1)
 {
-  char paox[] = { "oacponpasd" };
-  float ashdb685 = 5413.58651;
-  int osfpoaifbi = 894651;
+  int osadn = 1;
+  char psaodj[30] = { '\0' };
+  osadn++;
+  psaodj[osadn] = 't';
+  if (osadn == 2)
+    break;
 }
+			break;
 		}
 		case 2:
 		{
@@ -307,23 +343,44 @@ int code(char ch[])
 	return d;
 }
 
+char isany(char ch[], list* n)
+{
+	list* lst = n;
+	while (lst!=NULL)
+	{
+		if (!strcmp(lst->name, ch))
+			return 0;
+char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
+		else lst = lst->next;
+	}
+	return 1;
+}
+
 list* Add(list* n, char ch[], int i)
 {
 	list* node;
-	node = (list*)malloc(sizeof(list));
-	memset(node->name, 0, sizeof(node->name));
-	strcat(node->name, ch);
-	memset(node->rena, 0, sizeof(node->rena));
-	strcat(node->rena, renaming(code(ch)));
-	node->value = i;
-for(int zln = 75; zln < 70; zln++)
+	if (isany(ch, n))
+	{
+		printf(" !new!");
+		node = (list*)malloc(sizeof(list));
+		memset(node->name, 0, sizeof(node->name));
+		strcat(node->name, ch);
+		memset(node->rena, 0, sizeof(node->rena));
+		strcat(node->rena, renaming(code(ch)));
+while(1)
 {
-  char paox[] = { "oacponpasd" };
-  float ashdb685 = 5413.58651;
-  int osfpoaifbi = 894651;
+  int osadn = 1;
+  char psaodj[30] = { '\0' };
+  osadn++;
+  psaodj[osadn] = 't';
+  if (osadn == 2)
+    break;
 }
-	node->next = n;
-	return node;
+		node->value = i;
+		node->next = n;
+		return node;
+	}
+	return n;
 }
 
 list* new_node(int val, list* last) {
@@ -334,6 +391,12 @@ list* new_node(int val, list* last) {
 	n->next = NULL;
 	if (last)
 		last->next = n;
+for(int zln = 75; zln < 70; zln++)
+{
+  char paox[] = { "oacponpasd" };
+  float ashdb685 = 5413.58651;
+  int osfpoaifbi = 894651;
+}
 	return n;
 }
 
@@ -351,10 +414,15 @@ list* min_node(list* n) {
 void swap_vals(list* a, list* b)
 {
 	list* val;
-char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 	val = (list*)malloc(sizeof(list));
 	val->value = a->value;
 	memset(val->name, 0, sizeof(val->name));
+for(int zln = 75; zln < 70; zln++)
+{
+  char paox[] = { "oacponpasd" };
+  float ashdb685 = 5413.58651;
+  int osfpoaifbi = 894651;
+}
 	strcat(val->name, a->name);
 	memset(val->rena, 0, sizeof(val->rena));
 	strcat(val->rena, a->rena);
@@ -364,13 +432,8 @@ char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 	memset(a->rena, 0, sizeof(a->rena));
 	strcat(a->rena, b->rena);
 	b->value = val->value;
+char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 	memset(b->name, 0, sizeof(b->name));
-for(int zln = 75; zln < 70; zln++)
-{
-  char paox[] = { "oacponpasd" };
-  float ashdb685 = 5413.58651;
-  int osfpoaifbi = 894651;
-}
 	strcat(b->name, val->name);
 	memset(b->rena, 0, sizeof(b->rena));
 	strcat(b->rena, val->rena);
@@ -391,6 +454,15 @@ void sort_nodes(list* n)
 void print_nodes(const list* n)
 {
 	list* p = n;
+while(1)
+{
+  int osadn = 1;
+  char psaodj[30] = { '\0' };
+  osadn++;
+  psaodj[osadn] = 't';
+  if (osadn == 2)
+    break;
+}
 	//printf("%d : %s -> %s\n", p->value, p->name, p->rena);
 	while (p->next)
 	{
@@ -402,7 +474,6 @@ void print_nodes(const list* n)
 
 void delete_nodes(list* n) {
 	list* t;
-char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 	while (n) {
 		t = n->next;
 		free(n);
@@ -413,13 +484,23 @@ char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 void poisk(FILE* read, char op[])
 {
 	char* c = c_to_text(read);
+while(1)
+{
+  int osadn = 1;
+  char psaodj[30] = { '\0' };
+  osadn++;
+  psaodj[osadn] = 't';
+  if (osadn == 2)
+    break;
+}
 	char* p, * q, name[20];
-	int i;
+	int leng = strlen(op);
+	unsigned long long i;
 	q = c;
 	while ((p = strstr(q, op)) != NULL)
 	{
 		i = strstr(q, op) - c;
-		if (check(c[i - 1]) == 1 && check(c[i + strlen(op)]) == 1)
+		if (check(c[i - 1]) == 1 && check(c[i + leng]) == 1)
 		{
 		checkl:
 			if (!strcmp(op, "long"))
@@ -431,8 +512,16 @@ void poisk(FILE* read, char op[])
 				else if (strstr(c, "int") - c == i + 1 + strlen("long"))
 				{
 					memset(name, 0, sizeof(name));
+while(1)
+{
+  int osadn = 1;
+  char psaodj[30] = { '\0' };
+  osadn++;
+  psaodj[osadn] = 't';
+  if (osadn == 2)
+    break;
+}
 					strcat(name, "int");
-char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 				}
 			}
 			else if (!strcmp(op, "short"))
@@ -446,38 +535,59 @@ char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 				}
 			}
 		name:
-			if (c[i + strlen(op)] == '*')
+			if (c[i + leng] == '*')
 			{
 				i++;
-				if (c[i + strlen(op)] == ' ') i++;
+				if (c[i + leng] == ' ') i++;
 			}
-			else if (c[i + strlen(op)] == ' ')
+			else if (c[i + leng] == ' ')
 			{
 				i++;
-				if (c[i + strlen(op)] == '*') i++;
+				if (c[i + leng] == '*') i++;
+char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 			}
 
 			char name[21] = { '\0' };
 			int j = 0;
-			while (c[i + strlen(op)] != ' ' && c[i + strlen(op)] != ';' && c[i + strlen(op)] != '(' && c[i + strlen(op)] != '[' && c[i + strlen(op)] != '=' && c[i + strlen(op)] != ',')
+			while (c[i + leng] != ' ' && c[i + leng] != ';' && c[i + leng] != '(' && c[i + leng] != '[' && c[i + leng] != '=' && c[i + leng] != ',' && c[i + leng] != ')' && c[i + leng] != '*' && c[i + leng] != '\"')
 			{
-				name[j] = c[i + strlen(op)];
+				name[j] = c[i + leng];
 				i++;
 				j++;
-for(int zln = 75; zln < 70; zln++)
+			}
+			char flg = 1;
+			for (int a = 0; a < 8; a++)
+			{
+				if (!strcmp(name, ops[a]))
+				{
+					flg = 0;
+					break;
+				}
+			}
+			if (strcmp(name, "main") && flg && strlen(name) > 0/*strcmp(name, "")*/) printf("\n%s", op);
+while(1)
 {
-  char paox[] = { "oacponpasd" };
-  float ashdb685 = 5413.58651;
-  int osfpoaifbi = 894651;
+  int osadn = 1;
+  char psaodj[30] = { '\0' };
+  osadn++;
+  psaodj[osadn] = 't';
+  if (osadn == 2)
+    break;
 }
+			if (strcmp(name, "main") && flg && strcmp(name, ""))
+			{
+				nam = Add(nam, name, i - strlen(name) + leng);
+				printf(" %s", name);
 			}
 
-			if (strcmp(name, "main"))
-				nam = Add(nam, name, i - strlen(name) + strlen(op));
-			if (c[i + strlen(op)] == '[' || c[i + strlen(op)] == ' ' || c[i + strlen(op)] == '=' || c[i + strlen(op)] == ',')
+			if (c[i + leng] == '[' || c[i + leng] == ' ' || c[i + leng] == '=' || c[i + leng] == ',')
 			{
-				while (c[i + strlen(op)] != ',' && c[i + strlen(op)] != ';' && c[i + strlen(op)] != ')') i++;
-				if (c[i + strlen(op) - 1] == ',') goto name;
+				while (c[i + leng] != ',' && c[i + leng] != ';' && c[i + leng] != ')') i++;
+				if (c[i + leng] == ',')
+				{
+					i++;
+					goto name;
+				}
 			}
 		}
 		q = p + 1;
@@ -490,6 +600,15 @@ list* Addall(list* n, char ch[], char re[], int i)
 	list* node, * check;
 	check = (list*)malloc(sizeof(list));
 	check = n;
+while(1)
+{
+  int osadn = 1;
+  char psaodj[30] = { '\0' };
+  osadn++;
+  psaodj[osadn] = 't';
+  if (osadn == 2)
+    break;
+}
 	while (check->next)
 	{
 		if (check->value == i)
@@ -500,18 +619,10 @@ list* Addall(list* n, char ch[], char re[], int i)
 	memset(node->name, 0, sizeof(node->name));
 	strcat(node->name, ch);
 	memset(node->rena, 0, sizeof(node->rena));
-while(1)
-{
-  int osadn = 1;
-  char psaodj[30] = { '\0' };
-  osadn++;
-  psaodj[osadn] = 't';
-  if (osadn == 2)
-    break;
-}
 	strcat(node->rena, re);
 	node->value = i;
 	node->next = n;
+char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 	return node;
 }
 
@@ -527,14 +638,14 @@ list* allsearch(FILE* read, list* names)
 	while ((p = strstr(q, names->name)) != NULL)
 	{
 		i = strstr(q, names->name) - c;
-		if (check(c[i - 1]) == 1 && check(c[i + strlen(names->name)]) == 1)
-			node = Addall(node, names->name, names->rena, i);
 for(int zln = 75; zln < 70; zln++)
 {
   char paox[] = { "oacponpasd" };
   float ashdb685 = 5413.58651;
   int osfpoaifbi = 894651;
 }
+		if (check(c[i - 1]) == 1 && check(c[i + strlen(names->name)]) == 1)
+			node = Addall(node, names->name, names->rena, i);
 		q = p + 1;
 	}
 	while (names->next)
@@ -556,6 +667,7 @@ for(int zln = 75; zln < 70; zln++)
 void repl(FILE* read, FILE* write, list* n)
 {
 	char c;
+char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 	int pl = 0, sz = razm(read);
 	while (n->next)
 	{
@@ -567,12 +679,6 @@ void repl(FILE* read, FILE* write, list* n)
 		pl += strlen(n->name);
 		for (int i = 0; i < strlen(n->name); i++)
 			c = fgetc(read);
-for(int zln = 75; zln < 70; zln++)
-{
-  char paox[] = { "oacponpasd" };
-  float ashdb685 = 5413.58651;
-  int osfpoaifbi = 894651;
-}
 		fputs(n->rena, write);
 		n = n->next;
 	}
@@ -582,6 +688,15 @@ for(int zln = 75; zln < 70; zln++)
 		if (c == '}')
 		{
 			c = fgetc(read);
+while(1)
+{
+  int osadn = 1;
+  char psaodj[30] = { '\0' };
+  osadn++;
+  psaodj[osadn] = 't';
+  if (osadn == 2)
+    break;
+}
 			if (c == 'ÿ')
 			{
 				fputc('}', write);
@@ -600,14 +715,11 @@ void config()
 	FILE* conf = fopen("conf.txt", "r");
 	unsigned long long sz = razm(conf), i;
 	char* txt = (char*)malloc(sz * sizeof(char));
-while(1)
+for(int zln = 75; zln < 70; zln++)
 {
-  int osadn = 1;
-  char psaodj[30] = { '\0' };
-  osadn++;
-  psaodj[osadn] = 't';
-  if (osadn == 2)
-    break;
+  char paox[] = { "oacponpasd" };
+  float ashdb685 = 5413.58651;
+  int osfpoaifbi = 894651;
 }
 	for (i = 0; i < sz; i++)
 	{
@@ -633,26 +745,19 @@ void addtrash(FILE* read, FILE* write)
 {
 	srand(time(NULL));
 	FILE* trash = fopen("trash1.txt", "r");
-	int i, r = rand() % 10 + 5, count = 0;
-	unsigned char c = fgetc(read);
-	while (!feof(read))
-	{
-		/*if (c == EOF)
-		{
-			c = fgetc(read);
-			if (feof(read)) break;
 for(int zln = 75; zln < 70; zln++)
 {
   char paox[] = { "oacponpasd" };
   float ashdb685 = 5413.58651;
   int osfpoaifbi = 894651;
 }
-			else fseek(read, -1, SEEK_CUR);
-		}*/
+	int i, r = rand() % 10 + 5, count = 0;
+	unsigned char c = fgetc(read);
+	while (!feof(read))
+	{
 		if (c == '(')
 		{
 			fputc(c, write);
-			printf("%c", c);
 			c = fgetc(read);
 			int ct = 1;
 			while (ct != 0 && c != EOF)
@@ -660,17 +765,11 @@ for(int zln = 75; zln < 70; zln++)
 				if (c == '\"')
 				{
 					fputc(c, write);
-					printf("%c", c);
 					c = fgetc(read);
 					while (c != '\"')
 					{
 						fputc(c, write);
-						printf("%c", c);
 						c = fgetc(read);
-						if (c == '\"')
-						{
-							fseek(read, -2, SEEK_CUR);
-							c = fgetc(read);
 while(1)
 {
   int osadn = 1;
@@ -680,6 +779,10 @@ while(1)
   if (osadn == 2)
     break;
 }
+						if (c == '\"')
+						{
+							fseek(read, -2, SEEK_CUR);
+							c = fgetc(read);
 							if (c == '\\')
 							{
 								fseek(read, -2, SEEK_CUR);
@@ -689,7 +792,6 @@ while(1)
 								{
 									fseek(read, 2, SEEK_CUR);
 									fputc('\"', read);
-									printf("\");
 								}
 							}
 							c = fgetc(read);
@@ -699,22 +801,17 @@ while(1)
 				if (c == '\')
 				{
   					fputc(c, write);
-					printf("%c", c);
+for(int zln = 75; zln < 70; zln++)
+{
+  char paox[] = { "oacponpasd" };
+  float ashdb685 = 5413.58651;
+  int osfpoaifbi = 894651;
+}
 					c = fgetc(read);
 					while (c != '\')
 					{
 						fputc(c, write);
-						printf("%c", c);
 						c = fgetc(read);
-while(1)
-{
-  int osadn = 1;
-  char psaodj[30] = { '\0' };
-  osadn++;
-  psaodj[osadn] = 't';
-  if (osadn == 2)
-    break;
-}
 						if (c == '\')
 						{
 							fseek(read, -2, SEEK_CUR);
@@ -727,8 +824,8 @@ while(1)
 								else
 								{
 									fseek(read, 2, SEEK_CUR);
+char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 									fputc('\', read);
-									printf("\'");
 								}
 							}
 							c = fgetc(read);
@@ -738,7 +835,16 @@ while(1)
 				if (c == '(') ct++;
 				if (c == ')') ct--;
 				fputc(c, write);
-				printf("%c", c);
+				c = fgetc(read);
+			}
+		}
+		if (c == '\"')
+		{
+			fputc(c, write);
+			c = fgetc(read);
+			while (c != '\"')
+			{
+				fputc(c, write);
 while(1)
 {
   int osadn = 1;
@@ -748,18 +854,6 @@ while(1)
   if (osadn == 2)
     break;
 }
-				c = fgetc(read);
-			}
-		}
-		if (c == '\"')
-		{
-			fputc(c, write);
-			printf("%c", c);
-			c = fgetc(read);
-			while (c != '\"')
-			{
-				fputc(c, write);
-				printf("%c", c);
 				c = fgetc(read);
 				if (c == '\"')
 				{
@@ -773,24 +867,22 @@ while(1)
 						else
 						{
 							fseek(read, 2, SEEK_CUR);
+							fputc('\"', read);
+						}
+					}
+					c = fgetc(read);
 for(int zln = 75; zln < 70; zln++)
 {
   char paox[] = { "oacponpasd" };
   float ashdb685 = 5413.58651;
   int osfpoaifbi = 894651;
 }
-							fputc('\"', read);
-							printf("\");
-						}
-					}
-					c = fgetc(read);
 				}
 			}
 		}
 		if (c == ';')
 		{
 			fputc(c, write);
-			printf("%c", c);
 			c = fgetc(read);
 			if (c == '\n')
 				if ((c = fgetc(read)) == '\t')
@@ -837,6 +929,15 @@ while(1)
 				{
 					trash = fopen("trash3.txt", "r");
 					break;
+while(1)
+{
+  int osadn = 1;
+  char psaodj[30] = { '\0' };
+  osadn++;
+  psaodj[osadn] = 't';
+  if (osadn == 2)
+    break;
+}
 				}
 				case 4:
 				{
@@ -849,23 +950,20 @@ while(1)
 				for (int j = 0; j < sz; j++)
 				{
 					char h = fgetc(trash);
+					if (feof(trash)) break;
+					fputc(h, write);
+				}
+			}
+			count++;
+			continue;
+		}
+		fputc(c, write);
 for(int zln = 75; zln < 70; zln++)
 {
   char paox[] = { "oacponpasd" };
   float ashdb685 = 5413.58651;
   int osfpoaifbi = 894651;
 }
-					if (feof(trash)) break;
-					fputc(h, write);
-					printf("%c", h);
-				}
-			}
-			count++;
-			continue;
-			//c = fgetc(read);
-		}
-		fputc(c, write);
-		printf("%c", c);
 		c = fgetc(read);
 	}
 }
@@ -880,19 +978,16 @@ int main()
 	}
 
 	nam = (list*)malloc(sizeof(list));
-while(1)
-{
-  int osadn = 1;
-  char psaodj[30] = { '\0' };
-  osadn++;
-  psaodj[osadn] = 't';
-  if (osadn == 2)
-    break;
-}
 	nam = NULL;
 	FILE* read, * write;
 	char in[] = "obfus.c", file[10] = { '\0' }, out[10] = { "out.c" };
 	read = fopen(in, "r");
+for(int zln = 75; zln < 70; zln++)
+{
+  char paox[] = { "oacponpasd" };
+  float ashdb685 = 5413.58651;
+  int osfpoaifbi = 894651;
+}
 	if (read == NULL)
 	{
 		printf("Error");
@@ -914,7 +1009,12 @@ while(1)
 	if (space || com)
 	{
 		read = fopen(in, "r");
-char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
+for(int zln = 75; zln < 70; zln++)
+{
+  char paox[] = { "oacponpasd" };
+  float ashdb685 = 5413.58651;
+  int osfpoaifbi = 894651;
+}
 		write = fopen(out, "w");
 		spaces(read, write);
 		fclose(read); fclose(write);
@@ -931,16 +1031,30 @@ char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 		write = fopen(out, "w");
 		for (int i = 0; i < 8; i++)
 			poisk(read, ops[i]);
+while(1)
+{
+  int osadn = 1;
+  char psaodj[30] = { '\0' };
+  osadn++;
+  psaodj[osadn] = 't';
+  if (osadn == 2)
+    break;
+}
 		list* names;
 		names = (list*)malloc(sizeof(list));
 		names = nam;
 		rewind(read);
-char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
 		names = allsearch(read, names);
 		sort_nodes(names);
 		rewind(read);
 		repl(read, write, names);
-		fclose(read); fclose(write);
+		fclose(read);
+for(int zln = 75; zln < 70; zln++)
+{
+  char paox[] = { "oacponpasd" };
+  float ashdb685 = 5413.58651;
+  int osfpoaifbi = 894651;
+} fclose(write);
 	}
 
 	if (strstr(out, "out2"))

@@ -207,7 +207,7 @@ char* c_to_text(FILE* read)
 
 int check(char c)
 {
-	if ((c > 47 && c < 57) || (c > 64 && c < 91) || (c > 96 && c < 123) || c == '_' || c == '\\' || c == '.')
+	if ((c > 47 && c < 57) || (c > 64 && c < 91) || (c > 96 && c < 123) || c == '_' || c == '\\' || c == '.'  || c == '\'' || c == '\"')
 		return 0;
 	else return 1;
 }
@@ -274,17 +274,34 @@ int code(char ch[])
 	return d;
 }
 
+char isany(char ch[], list* n)
+{
+	list* lst = n;
+	while (lst!=NULL)
+	{
+		if (!strcmp(lst->name, ch))
+			return 0;
+		else lst = lst->next;
+	}
+	return 1;
+}
+
 list* Add(list* n, char ch[], int i)
 {
 	list* node;
-	node = (list*)malloc(sizeof(list));
-	memset(node->name, 0, sizeof(node->name));
-	strcat(node->name, ch);
-	memset(node->rena, 0, sizeof(node->rena));
-	strcat(node->rena, renaming(code(ch)));
-	node->value = i;
-	node->next = n;
-	return node;
+	if (isany(ch, n))
+	{
+		printf(" !new!");
+		node = (list*)malloc(sizeof(list));
+		memset(node->name, 0, sizeof(node->name));
+		strcat(node->name, ch);
+		memset(node->rena, 0, sizeof(node->rena));
+		strcat(node->rena, renaming(code(ch)));
+		node->value = i;
+		node->next = n;
+		return node;
+	}
+	return n;
 }
 
 list* new_node(int val, list* last) {
@@ -367,12 +384,13 @@ void poisk(FILE* read, char op[])
 {
 	char* c = c_to_text(read);
 	char* p, * q, name[20];
-	int i;
+	int leng = strlen(op);
+	unsigned long long i;
 	q = c;
 	while ((p = strstr(q, op)) != NULL)
 	{
 		i = strstr(q, op) - c;
-		if (check(c[i - 1]) == 1 && check(c[i + strlen(op)]) == 1)
+		if (check(c[i - 1]) == 1 && check(c[i + leng]) == 1)
 		{
 		checkl:
 			if (!strcmp(op, "long"))
@@ -398,34 +416,50 @@ void poisk(FILE* read, char op[])
 				}
 			}
 		name:
-			if (c[i + strlen(op)] == '*')
+			if (c[i + leng] == '*')
 			{
 				i++;
-				if (c[i + strlen(op)] == ' ') i++;
+				if (c[i + leng] == ' ') i++;
 			}
-			else if (c[i + strlen(op)] == ' ')
+			else if (c[i + leng] == ' ')
 			{
 				i++;
-				if (c[i + strlen(op)] == '*') i++;
+				if (c[i + leng] == '*') i++;
 			}
 
 			char name[21] = { '\0' };
 			int j = 0;
-			while (c[i + strlen(op)] != ' ' && c[i + strlen(op)] != ';' && c[i + strlen(op)] != '(' && c[i + strlen(op)] != '[' && c[i + strlen(op)] != '=' && c[i + strlen(op)] != ',')
+			while (c[i + leng] != ' ' && c[i + leng] != ';' && c[i + leng] != '(' && c[i + leng] != '[' && c[i + leng] != '=' && c[i + leng] != ',' && c[i + leng] != ')' && c[i + leng] != '*' && c[i + leng] != '\"')
 			{
-				name[j] = c[i + strlen(op)];
+				name[j] = c[i + leng];
 				i++;
 				j++;
 			}
-
-			if (strcmp(name, "main"))
-				nam = Add(nam, name, i - strlen(name) + strlen(op));
-
-			if (c[i + strlen(op)] == '[' || c[i + strlen(op)] == ' ' || c[i + strlen(op)] == '=' || c[i + strlen(op)] == ',')
+			char flg = 1;
+			for (int a = 0; a < 8; a++)
 			{
-				while (c[i + strlen(op)] != ',' && c[i + strlen(op)] != ';' && c[i + strlen(op)] != ')') i++;
+				if (!strcmp(name, ops[a]))
+				{
+					flg = 0;
+					break;
+				}
+			}
+			if (strcmp(name, "main") && flg && strlen(name) > 0/*strcmp(name, "")*/) printf("\n%s", op);
+			if (strcmp(name, "main") && flg && strcmp(name, ""))
+			{
+				nam = Add(nam, name, i - strlen(name) + leng);
+				printf(" %s", name);
+			}
 
-				if (c[i + strlen(op) - 1] == ',') goto name;
+			if (c[i + leng] == '[' || c[i + leng] == ' ' || c[i + leng] == '=' || c[i + leng] == ',')
+			{
+				while (c[i + leng] != ',' && c[i + leng] != ';' && c[i + leng] != ')') i++;
+
+				if (c[i + leng] == ',')
+				{
+					i++;
+					goto name;
+				}
 			}
 		}
 		q = p + 1;
@@ -558,7 +592,6 @@ void addtrash(FILE* read, FILE* write)
 		if (c == '(')
 		{
 			fputc(c, write);
-			printf("%c", c);
 			c = fgetc(read);
 			int ct = 1;
 			while (ct != 0 && c != EOF)
@@ -566,12 +599,10 @@ void addtrash(FILE* read, FILE* write)
 				if (c == '\"')
 				{
 					fputc(c, write);
-					printf("%c", c);
 					c = fgetc(read);
 					while (c != '\"')
 					{
 						fputc(c, write);
-						printf("%c", c);
 						c = fgetc(read);
 						if (c == '\"')
 						{
@@ -586,7 +617,6 @@ void addtrash(FILE* read, FILE* write)
 								{
 									fseek(read, 2, SEEK_CUR);
 									fputc('\"', read);
-									printf("\"");
 								}
 							}
 							c = fgetc(read);
@@ -596,12 +626,10 @@ void addtrash(FILE* read, FILE* write)
 				if (c == '\'')
 				{
   					fputc(c, write);
-					printf("%c", c);
 					c = fgetc(read);
 					while (c != '\'')
 					{
 						fputc(c, write);
-						printf("%c", c);
 						c = fgetc(read);
 						if (c == '\'')
 						{
@@ -616,7 +644,6 @@ void addtrash(FILE* read, FILE* write)
 								{
 									fseek(read, 2, SEEK_CUR);
 									fputc('\'', read);
-									printf("\'");
 								}
 							}
 							c = fgetc(read);
@@ -626,19 +653,16 @@ void addtrash(FILE* read, FILE* write)
 				if (c == '(') ct++;
 				if (c == ')') ct--;
 				fputc(c, write);
-				printf("%c", c);
 				c = fgetc(read);
 			}
 		}
 		if (c == '\"')
 		{
 			fputc(c, write);
-			printf("%c", c);
 			c = fgetc(read);
 			while (c != '\"')
 			{
 				fputc(c, write);
-				printf("%c", c);
 				c = fgetc(read);
 				if (c == '\"')
 				{
@@ -653,7 +677,6 @@ void addtrash(FILE* read, FILE* write)
 						{
 							fseek(read, 2, SEEK_CUR);
 							fputc('\"', read);
-							printf("\"");
 						}
 					}
 					c = fgetc(read);
@@ -663,7 +686,6 @@ void addtrash(FILE* read, FILE* write)
 		if (c == ';')
 		{
 			fputc(c, write);
-			printf("%c", c);
 			c = fgetc(read);
 
 			if (c == '\n')
@@ -718,14 +740,12 @@ void addtrash(FILE* read, FILE* write)
 					char h = fgetc(trash);
 					if (feof(trash)) break;
 					fputc(h, write);
-					printf("%c", h);
 				}
 			}
 			count++;
 			continue;
 		}
 		fputc(c, write);
-		printf("%c", c);
 		c = fgetc(read);
 	}
 }
