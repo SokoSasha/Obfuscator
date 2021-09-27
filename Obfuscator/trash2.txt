@@ -1,7 +1,7 @@
 
-	for(int zln = 75; zln < 70; zln++)
-	{
-		char paox[] = { "oacponpasd" };
-		float ashdb685 = 5413.58651;
-		int osfpoaifbi = 894651;
-	}
+for(int zln = 75; zln < 70; zln++)
+{
+  char paox[] = { "oacponpasd" };
+  float ashdb685 = 5413.58651;
+  int osfpoaifbi = 894651;
+}

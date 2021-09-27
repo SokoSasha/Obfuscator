@@ -1,10 +1,10 @@
 
-	while(1)
-	{
-		int osadn = 1;
-		char psaodj[30] = { '\0' };
-		osadn++;
-		psaodj[osadn] = 't';
-		if (osadn == 2)
-			break;
-	}
+while(1)
+{
+  int osadn = 1;
+  char psaodj[30] = { '\0' };
+  osadn++;
+  psaodj[osadn] = 't';
+  if (osadn == 2)
+    break;
+}

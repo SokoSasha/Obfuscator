@@ -555,6 +555,12 @@ void addtrash(FILE* read, FILE* write)
 	unsigned char c = fgetc(read);
 	while (!feof(read))
 	{
+		/*if (c == EOF)
+		{
+			c = fgetc(read);
+			if (feof(read)) break;
+			else fseek(read, -1, SEEK_CUR);
+		}*/
 		if (c == '(')
 		{
 			fputc(c, write);
@@ -723,6 +729,7 @@ void addtrash(FILE* read, FILE* write)
 			}
 			count++;
 			continue;
+			//c = fgetc(read);
 		}
 		fputc(c, write);
 		printf("%c", c);

@@ -1,2 +1,2 @@
 
-	char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
+char jlaiajn[] = { "iaubsnpigavihbo876876fvoaugsbd[asikn[PBI" };
