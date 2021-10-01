@@ -9,7 +9,7 @@ int space, com, trash, change;
 
 typedef struct str
 {
-	int value;
+	unsigned long long value;
 	char name[20];
 	char rena[10];
 	struct str* next;
@@ -20,15 +20,9 @@ list* nam;
 void spaces(FILE* read, FILE* write)
 {
 	char c;
-	while (1)
+	while (!feof(read))
 	{
 		c = fgetc(read);
-		if (c == 'я')
-		{
-			c = fgetc(read);
-			if (feof(read)) break;
-			else fseek(read, -1, SEEK_CUR);
-		}
 
 	comm:
 		if (com)
@@ -40,6 +34,7 @@ void spaces(FILE* read, FILE* write)
 				{
 					fseek(read, -1, SEEK_CUR);
 					fputc('/', write);
+					printf("/");
 					continue;
 				}
 
@@ -80,11 +75,13 @@ void spaces(FILE* read, FILE* write)
 			if (c == '/')
 			{
 				fputc(c, write);
+				printf("%c", c);
 				c = fgetc(read);
 				if (c != '/' && c != '*')
 				{
 					fseek(read, -1, SEEK_CUR);
 					fputc('/', write);
+					printf("/");
 					continue;
 				}
 
@@ -97,10 +94,12 @@ void spaces(FILE* read, FILE* write)
 						if (c == '\\')
 						{
 							fputc(c, write);
+							printf("%c", c);
 							c = fgetc(read);
 							if (c == '\n')
 							{
 								fputc('\n', write);
+								printf("\n");
 								continue;
 							}
 							fputc(c, write);
@@ -108,10 +107,14 @@ void spaces(FILE* read, FILE* write)
 						if (c == '\n' || feof(read))
 						{
 							if (c == '\n')
+							{
 								fputc('\n', write);
+								printf("\n");
+							}
 							break;
 						}
 						fputc(c, write);
+						printf("%c", c);
 					}
 					continue;
 				}
@@ -121,11 +124,54 @@ void spaces(FILE* read, FILE* write)
 		{
 			if (c == ' ')
 			{
+				fseek(read, -2, SEEK_CUR);
 				c = fgetc(read);
-				if (c != '+' && c != '=' && c != '-' && c != ',' && c != '^' && c != '&' && c != '|' && c != '<' && c != '>' && c != ';' && c != '*' && c != '/' && c != '(')
+				if (c == '\'')
+				{
+					fseek(read, 1, SEEK_CUR);
+					c = fgetc(read);
+					if (c == '\'')
+					{
+						fputs(" \'", write);
+						printf(" \'");
+						continue;
+					}
+					else fseek(read, -2, SEEK_CUR);
+				}
+				if (c == '\"')
+				{
+					fseek(read, 1, SEEK_CUR);
+					c = fgetc(read);
+					if (c == '\"')
+					{
+						fputs(" \"", write);
+						printf(" \"");
+						continue;
+					}
+					else fseek(read, -2, SEEK_CUR);
+				}
+				if (c == '{' || c == ';')
+				{
+					fseek(read, 1, SEEK_CUR);
+					c = fgetc(read);
+					//continue;
+				}
+				else
+				{
+					fseek(read, 1, SEEK_CUR);
+					c = fgetc(read);
+					if (c == ' ')
+					{
+						fseek(read, -1, SEEK_CUR);
+						continue;
+					}
+				}
+				if (c != '!' && c != '+' && c != '=' && c != '-' && c != ',' && c != '^' && c != '&' && c != '|' && c != '<' && c != '>' && c != ';' && c != '*' && c != '/' && c != '(' && c!='\"' && c != '\'' && c!='}' && c!='{')
 				{
 					fputc(' ', write);
+					printf(" ");
 					fputc(c, write);
+					printf("%c", c);
 					continue;
 				}
 
@@ -148,10 +194,12 @@ void spaces(FILE* read, FILE* write)
 					}
 				}
 				fputc(c, write);
+				printf("%c", c);
 				c = fgetc(read);
 				if (c != ' ' && c != '\n')
 				{
 					fputc(c, write);
+					printf("%c", c);
 					continue;
 				}
 				continue;
@@ -159,20 +207,50 @@ void spaces(FILE* read, FILE* write)
 
 			if (c == '#')
 			{
-				fseek(read, -1, SEEK_CUR);
-				do
-				{
-					c = fgetc(read);
-					fputc(c, write);
-				} while (c != '\n');
-			}
-
-			if (c != '\t' && c != '\n')
 				fputc(c, write);
+				printf("%c", c);
+				if (ftell(read) == 1) goto doit;
+				fseek(read, -2, SEEK_CUR);
+				c = fgetc(read);
+				if (c == '\'')
+				{
+					fseek(read, 1, SEEK_CUR);
+					c = fgetc(read);
+					if (c == '\'')
+					{
+						//fseek(read, -2, SEEK_CUR);
+						fputc(c, write);
+						printf("%c", c);
+						c = fgetc(read);
+						goto skip;
+					}
+					fseek(read, -1, SEEK_CUR);
+				}
+				else
+				{
+					fseek(read, 1, SEEK_CUR);
+					do
+					{
+					doit:
+						c = fgetc(read);
+						fputc(c, write);
+						printf("%c", c);
+					} while (c != '\n');
+				}
+			}
+		skip:
+			if (c != '\t' && c != '\n')
+			{
+				fputc(c, write);
+				printf("%c", c);
+			}
 		}
 
 		if (!space)
+		{
 			fputc(c, write);
+			printf("%c", c);
+		}
 	}
 
 }
@@ -219,27 +297,7 @@ char* renaming(int i)
 	unsigned char new[11] = { '\0' };
 	for (int i = 0; i < len; i++)
 	{
-		int h;
-		if (i == 0)
-		{
-			h = rand() % 2;
-			switch (h)
-			{
-			case 0:
-			{
-				new[i] = rand() % 26 + 97;
-				break;
-			}
-			case 1:
-			{
-				new[i] = rand() % 26 + 65;
-				break;
-			}
-			}
-			continue;
-		}
-
-		h = rand() % 3;
+		int h = rand() % 2;
 		switch (h)
 		{
 		case 0:
@@ -250,11 +308,6 @@ char* renaming(int i)
 		case 1:
 		{
 			new[i] = rand() % 26 + 65;
-			break;
-		}
-		case 2:
-		{
-			new[i] = rand() % 10 + 48;
 			break;
 		}
 		}
@@ -286,12 +339,11 @@ char isany(char ch[], list* n)
 	return 1;
 }
 
-list* Add(list* n, char ch[], int i)
+list* Add(list* n, char ch[], unsigned long long i)
 {
 	list* node;
 	if (isany(ch, n))
 	{
-		printf(" !new!");
 		node = (list*)malloc(sizeof(list));
 		memset(node->name, 0, sizeof(node->name));
 		strcat(node->name, ch);
@@ -304,7 +356,7 @@ list* Add(list* n, char ch[], int i)
 	return n;
 }
 
-list* new_node(int val, list* last) {
+list* new_node(unsigned long long val, list* last) {
 	list* n;
 	if ((n = (list*)malloc(sizeof(list))) == NULL)
 		return NULL;
@@ -366,7 +418,7 @@ void print_nodes(const list* n)
 	while (p->next)
 	{
 		//	p = p->next;
-		printf("%d : %s -> %s\n", p->value, p->name, p->rena);
+		printf("%lld: %s -> %s\n", p->value, p->name, p->rena);
 		p = p->next;
 	}
 }
@@ -382,14 +434,16 @@ void delete_nodes(list* n) {
 
 void poisk(FILE* read, char op[])
 {
+	unsigned long long rzmr = razm(read);
 	char* c = c_to_text(read);
 	char* p, * q, name[20];
 	int leng = strlen(op);
 	unsigned long long i;
 	q = c;
-	while ((p = strstr(q, op)) != NULL)
+	while ((p = strstr(q, op)) != NULL )
 	{
 		i = strstr(q, op) - c;
+		if (i >= razm) break;
 		if (check(c[i - 1]) == 1 && check(c[i + leng]) == 1)
 		{
 		checkl:
@@ -397,6 +451,7 @@ void poisk(FILE* read, char op[])
 			{
 				q = p + 1;
 				i = strstr(q, op) - c;
+				if (i >= razm) break;
 				if (strstr(c, "long") - c == i + 1 + strlen("long")) //на случай длинных лонгов
 					goto checkl;
 				else if (strstr(c, "int") - c == i + 1 + strlen("long"))
@@ -444,16 +499,12 @@ void poisk(FILE* read, char op[])
 					break;
 				}
 			}
-			if (strcmp(name, "main") && flg && strlen(name) > 0/*strcmp(name, "")*/) printf("\n%s", op);
-			if (strcmp(name, "main") && flg && strcmp(name, ""))
-			{
+			if (strcmp(name, "main") && strcmp(name, "unsigned") && flg && strlen(name) > 0)
 				nam = Add(nam, name, i - strlen(name) + leng);
-				printf(" %s", name);
-			}
 
 			if (c[i + leng] == '[' || c[i + leng] == ' ' || c[i + leng] == '=' || c[i + leng] == ',')
 			{
-				while (c[i + leng] != ',' && c[i + leng] != ';' && c[i + leng] != ')') i++;
+				while (c[i + leng] != ',' && c[i + leng] != ';' && c[i + leng] != ')') i++;;
 
 				if (c[i + leng] == ',')
 				{
@@ -467,7 +518,7 @@ void poisk(FILE* read, char op[])
 
 }
 
-list* Addall(list* n, char ch[], char re[], int i)
+list* Addall(list* n, char ch[], char re[], unsigned long long i)
 {
 	list* node, * check;
 	check = (list*)malloc(sizeof(list));
@@ -495,7 +546,7 @@ list* allsearch(FILE* read, list* names)
 	node->next = NULL;
 	char* c = c_to_text(read);
 	char* p, * q, name[20];
-	int i;
+	unsigned long long i = 0;
 	q = c;
 	while ((p = strstr(q, names->name)) != NULL)
 	{
@@ -523,7 +574,7 @@ list* allsearch(FILE* read, list* names)
 void repl(FILE* read, FILE* write, list* n)
 {
 	char c;
-	int pl = 0, sz = razm(read);
+	long long pl = 0, sz = razm(read);
 	while (n->next)
 	{
 		for (; pl < n->value; pl++)
@@ -543,7 +594,7 @@ void repl(FILE* read, FILE* write, list* n)
 		if (c == '}')
 		{
 			c = fgetc(read);
-			if (c == 'я')
+			if (c == EOF)
 			{
 				fputc('}', write);
 				break;
@@ -616,7 +667,7 @@ void addtrash(FILE* read, FILE* write)
 								else
 								{
 									fseek(read, 2, SEEK_CUR);
-									fputc('\"', read);
+									fputc('\"', write);
 								}
 							}
 							c = fgetc(read);
@@ -643,7 +694,7 @@ void addtrash(FILE* read, FILE* write)
 								else
 								{
 									fseek(read, 2, SEEK_CUR);
-									fputc('\'', read);
+									fputc('\'', write);
 								}
 							}
 							c = fgetc(read);
@@ -676,7 +727,7 @@ void addtrash(FILE* read, FILE* write)
 						else
 						{
 							fseek(read, 2, SEEK_CUR);
-							fputc('\"', read);
+							fputc('\"', write);
 						}
 					}
 					c = fgetc(read);
@@ -696,6 +747,7 @@ void addtrash(FILE* read, FILE* write)
 								if ((c = fgetc(read)) == 'e')
 								{
 									fseek(read, -6, SEEK_CUR);
+									c = fgetc(read);
 									continue;
 								}
 								else fseek(read, -6, SEEK_CUR);
@@ -813,13 +865,13 @@ int main()
 		fclose(read); fclose(write);
 	}
 
-	if (strstr(out, "out2"))
+	/*if (strstr(out, "out2"))
 	{
 		remove("out.c");
 		remove("out1.c");
 	}
 	if (strstr(out, "out1"))
-		remove("out.c");
+		remove("out.c");*/
 	printf("File is %s\n", out);
 
 	return 0;
