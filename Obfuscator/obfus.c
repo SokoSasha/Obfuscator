@@ -11,7 +11,7 @@ typedef struct str
 {
 	unsigned long long value;
 	char name[20];
-	char rena[10];
+	char rena[11];
 	struct str* next;
 } list;
 
@@ -34,7 +34,7 @@ void spaces(FILE* read, FILE* write)
 				{
 					fseek(read, -1, SEEK_CUR);
 					fputc('/', write);
-					printf("/");
+					//printf("/");
 					continue;
 				}
 
@@ -62,9 +62,19 @@ void spaces(FILE* read, FILE* write)
 						if (c == '\\')
 						{
 							c = fgetc(read);
-							if (c == '\n') continue;
+							if (c == '\n')
+								continue;
 						}
-						if (c == '\n' || feof(read)) break;
+						if (feof(read)) break;
+						if (c == '\n')
+						{
+							if (!spaces)
+							{
+								fputc(c, write);
+								//printf("%c", c);
+							}
+							break;
+						}
 					}
 					continue;
 				}
@@ -75,13 +85,13 @@ void spaces(FILE* read, FILE* write)
 			if (c == '/')
 			{
 				fputc(c, write);
-				printf("%c", c);
+				//printf("%c", c);
 				c = fgetc(read);
 				if (c != '/' && c != '*')
 				{
 					fseek(read, -1, SEEK_CUR);
 					fputc('/', write);
-					printf("/");
+					//printf("/");
 					continue;
 				}
 
@@ -94,12 +104,12 @@ void spaces(FILE* read, FILE* write)
 						if (c == '\\')
 						{
 							fputc(c, write);
-							printf("%c", c);
+							//printf("%c", c);
 							c = fgetc(read);
 							if (c == '\n')
 							{
 								fputc('\n', write);
-								printf("\n");
+								//printf("\n");
 								continue;
 							}
 							fputc(c, write);
@@ -109,12 +119,12 @@ void spaces(FILE* read, FILE* write)
 							if (c == '\n')
 							{
 								fputc('\n', write);
-								printf("\n");
+								//printf("\n");
 							}
 							break;
 						}
 						fputc(c, write);
-						printf("%c", c);
+						//printf("%c", c);
 					}
 					continue;
 				}
@@ -133,7 +143,7 @@ void spaces(FILE* read, FILE* write)
 					if (c == '\'')
 					{
 						fputs(" \'", write);
-						printf(" \'");
+						//printf(" \'");
 						continue;
 					}
 					else fseek(read, -2, SEEK_CUR);
@@ -145,7 +155,7 @@ void spaces(FILE* read, FILE* write)
 					if (c == '\"')
 					{
 						fputs(" \"", write);
-						printf(" \"");
+						//printf(" \"");
 						continue;
 					}
 					else fseek(read, -2, SEEK_CUR);
@@ -154,7 +164,6 @@ void spaces(FILE* read, FILE* write)
 				{
 					fseek(read, 1, SEEK_CUR);
 					c = fgetc(read);
-					//continue;
 				}
 				else
 				{
@@ -169,9 +178,9 @@ void spaces(FILE* read, FILE* write)
 				if (c != '!' && c != '+' && c != '=' && c != '-' && c != ',' && c != '^' && c != '&' && c != '|' && c != '<' && c != '>' && c != ';' && c != '*' && c != '/' && c != '(' && c!='\"' && c != '\'' && c!='}' && c!='{')
 				{
 					fputc(' ', write);
-					printf(" ");
+					//printf(" ");
 					fputc(c, write);
-					printf("%c", c);
+					//printf("%c", c);
 					continue;
 				}
 
@@ -184,7 +193,7 @@ void spaces(FILE* read, FILE* write)
 					c = fgetc(read);
 					if (c == '/')
 					{
-						fseek(read, -1, SEEK_CUR);
+						fseek(read, -2, SEEK_CUR);
 						goto comm;
 					}
 					else
@@ -194,12 +203,12 @@ void spaces(FILE* read, FILE* write)
 					}
 				}
 				fputc(c, write);
-				printf("%c", c);
+				//printf("%c", c);
 				c = fgetc(read);
 				if (c != ' ' && c != '\n')
 				{
 					fputc(c, write);
-					printf("%c", c);
+					//printf("%c", c);
 					continue;
 				}
 				continue;
@@ -208,7 +217,7 @@ void spaces(FILE* read, FILE* write)
 			if (c == '#')
 			{
 				fputc(c, write);
-				printf("%c", c);
+				//printf("%c", c);
 				if (ftell(read) == 1) goto doit;
 				fseek(read, -2, SEEK_CUR);
 				c = fgetc(read);
@@ -220,7 +229,7 @@ void spaces(FILE* read, FILE* write)
 					{
 						//fseek(read, -2, SEEK_CUR);
 						fputc(c, write);
-						printf("%c", c);
+						//printf("%c", c);
 						c = fgetc(read);
 						goto skip;
 					}
@@ -234,7 +243,7 @@ void spaces(FILE* read, FILE* write)
 					doit:
 						c = fgetc(read);
 						fputc(c, write);
-						printf("%c", c);
+						//printf("%c", c);
 					} while (c != '\n');
 				}
 			}
@@ -242,7 +251,7 @@ void spaces(FILE* read, FILE* write)
 			if (c != '\t' && c != '\n')
 			{
 				fputc(c, write);
-				printf("%c", c);
+				//printf("%c", c);
 			}
 		}
 
@@ -638,11 +647,15 @@ void addtrash(FILE* read, FILE* write)
 	FILE* trash = fopen("trash1.txt", "r");
 	int i, r = rand() % 10 + 5, count = 0;
 	unsigned char c = fgetc(read);
+	char skob = 0;
 	while (!feof(read))
 	{
+		if (c == '{') skob++;
+		if (c == '}') skob--;
 		if (c == '(')
 		{
 			fputc(c, write);
+			printf("%c", c);
 			c = fgetc(read);
 			int ct = 1;
 			while (ct != 0 && c != EOF)
@@ -650,10 +663,12 @@ void addtrash(FILE* read, FILE* write)
 				if (c == '\"')
 				{
 					fputc(c, write);
+					printf("%c", c);
 					c = fgetc(read);
 					while (c != '\"')
 					{
 						fputc(c, write);
+						printf("%c", c);
 						c = fgetc(read);
 						if (c == '\"')
 						{
@@ -668,6 +683,7 @@ void addtrash(FILE* read, FILE* write)
 								{
 									fseek(read, 2, SEEK_CUR);
 									fputc('\"', write);
+									printf("\"");
 								}
 							}
 							c = fgetc(read);
@@ -677,10 +693,12 @@ void addtrash(FILE* read, FILE* write)
 				if (c == '\'')
 				{
   					fputc(c, write);
+					printf("%c", c);
 					c = fgetc(read);
 					while (c != '\'')
 					{
 						fputc(c, write);
+						printf("%c", c);
 						c = fgetc(read);
 						if (c == '\'')
 						{
@@ -695,6 +713,7 @@ void addtrash(FILE* read, FILE* write)
 								{
 									fseek(read, 2, SEEK_CUR);
 									fputc('\'', write);
+									printf("\'");
 								}
 							}
 							c = fgetc(read);
@@ -704,16 +723,19 @@ void addtrash(FILE* read, FILE* write)
 				if (c == '(') ct++;
 				if (c == ')') ct--;
 				fputc(c, write);
+				printf("%c", c);
 				c = fgetc(read);
 			}
 		}
 		if (c == '\"')
 		{
 			fputc(c, write);
+			printf("%c", c);
 			c = fgetc(read);
 			while (c != '\"')
 			{
 				fputc(c, write);
+				printf("%c", c);
 				c = fgetc(read);
 				if (c == '\"')
 				{
@@ -728,6 +750,7 @@ void addtrash(FILE* read, FILE* write)
 						{
 							fseek(read, 2, SEEK_CUR);
 							fputc('\"', write);
+							printf("\"");
 						}
 					}
 					c = fgetc(read);
@@ -737,50 +760,86 @@ void addtrash(FILE* read, FILE* write)
 		if (c == ';')
 		{
 			fputc(c, write);
+			printf("%c", c);
 			c = fgetc(read);
+			int minus = 1;
 
+		enter:
 			if (c == '\n')
-				if ((c = fgetc(read)) == '\t')
-					if ((c = fgetc(read)) == 'e')
+			{
+				minus++;
+				c = fgetc(read);
+				if (c == '\n') goto enter;
+			tab:
+				if (c == '\t')
+				{
+					minus++;
+					c = fgetc(read);
+					if (c == '\t') goto tab;
+					if (c== 'e')
+					{
+						minus++;
 						if ((c = fgetc(read)) == 'l')
+						{
+							minus++;
 							if ((c = fgetc(read)) == 's')
+							{
+								minus++;
 								if ((c = fgetc(read)) == 'e')
 								{
-									fseek(read, -6, SEEK_CUR);
+									minus++;
+									fseek(read, -minus, SEEK_CUR);
 									c = fgetc(read);
 									continue;
 								}
-								else fseek(read, -6, SEEK_CUR);
-							else fseek(read, -5, SEEK_CUR);
-						else fseek(read, -4, SEEK_CUR);
-					else fseek(read, -3, SEEK_CUR);
-				else fseek(read, -2, SEEK_CUR);
-			else fseek(read, -1, SEEK_CUR);
+								else fseek(read, -minus, SEEK_CUR);
+							}
+							else fseek(read, -minus, SEEK_CUR);
+						}
+						else fseek(read, -minus, SEEK_CUR);
+					}
+					else fseek(read, -minus, SEEK_CUR);
+				}
+				else fseek(read, -minus, SEEK_CUR);
+			}
+			else fseek(read, -minus, SEEK_CUR);
 
 			c = fgetc(read);
 
+			char fl = 0;
 			if (count % r == 0)
 			{
+			rerand:
 				i = rand() % 3 + 1;
 				switch (i)
 				{
 				case 1:
 				{
-					trash = fopen("trash1.txt", "r");
+					fl = 0;
+					if (skob != 0)
+						trash = fopen("trash1.txt", "r");
+					else goto rerand;
 					break;
 				}
 				case 2:
 				{
-					trash = fopen("trash2.txt", "r");
+					fl = 0;
+					if (skob != 0)
+						trash = fopen("trash2.txt", "r");
+					else goto rerand;
 					break;
 				}
 				case 3:
 				{
+					while (fl == 0)
+						fl = rand();
 					trash = fopen("trash3.txt", "r");
 					break;
 				}
 				case 4:
 				{
+					while(fl==0)
+						fl = rand();
 					trash = fopen("trash4.txt", "r");
 					break;
 				}
@@ -790,14 +849,27 @@ void addtrash(FILE* read, FILE* write)
 				for (int j = 0; j < sz; j++)
 				{
 					char h = fgetc(trash);
+					if (fl != 0)
+					{
+						if (h == '1')
+						{
+							char nn[11] = { '\0' };
+							strcat(nn, renaming(fl));
+							fputs(nn, write);
+							printf("%s", nn);
+							h = fgetc(trash);
+						}
+					}
 					if (feof(trash)) break;
 					fputc(h, write);
+					printf("%c", h);
 				}
 			}
 			count++;
 			continue;
 		}
 		fputc(c, write);
+		printf("%c", c);
 		c = fgetc(read);
 	}
 }
@@ -865,13 +937,13 @@ int main()
 		fclose(read); fclose(write);
 	}
 
-	/*if (strstr(out, "out2"))
+	if (strstr(out, "out2"))
 	{
 		remove("out.c");
 		remove("out1.c");
 	}
 	if (strstr(out, "out1"))
-		remove("out.c");*/
+		remove("out.c");
 	printf("File is %s\n", out);
 
 	return 0;
